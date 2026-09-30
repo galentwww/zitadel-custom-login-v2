@@ -1,0 +1,22 @@
+node_modules/
+.next/
+dist/
+.turbo/
+.nx/
+*.tsbuildinfo
+.DS_Store
+
+# generated protobuf code
+packages/zitadel-proto/cjs/
+packages/zitadel-proto/es/
+packages/zitadel-proto/types/
+
+# secrets / local env
+.env.local
+.env.*.local
+*.pat
+login-client.pat
+
+# test output
+apps/login/test-results/
+apps/login/playwright-report/

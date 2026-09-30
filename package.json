@@ -1,0 +1,18 @@
+{
+  "packageManager": "pnpm@10.30.3",
+  "private": true,
+  "name": "zitadel-custom-login",
+  "scripts": {
+    "generate": "pnpm --filter @zitadel/proto generate",
+    "build:client": "pnpm --filter @zitadel/client build",
+    "prepare:deps": "pnpm generate && pnpm build:client",
+    "dev": "pnpm --filter @zitadel/login dev",
+    "build": "pnpm --filter @zitadel/login build",
+    "prod": "pnpm --filter @zitadel/login prod",
+    "test": "pnpm --filter @zitadel/login test-unit",
+    "dev:auth-url": "./scripts/dev-auth-url.sh"
+  },
+  "devDependencies": {
+    "@bufbuild/buf": "^1.69.0"
+  }
+}
