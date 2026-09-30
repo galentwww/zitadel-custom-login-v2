@@ -25,12 +25,16 @@ export function BrandShell({ children, footer }: { children: ReactNode; footer?:
     <div className={`${PAGE_BG} min-h-screen lg:grid lg:grid-cols-[minmax(0,5fr)_minmax(0,7fr)]`}>
       {/* Illustration */}
       <aside className="relative h-48 overflow-hidden sm:h-64 lg:sticky lg:top-0 lg:h-screen lg:p-4">
-        <div className="relative flex h-full w-full items-center justify-center overflow-hidden lg:rounded-[28px] lg:bg-gradient-to-b lg:from-[#fdebf1] lg:via-[#f9dfe8] lg:to-[#f4d3df] dark:lg:from-[#33262d] dark:lg:via-[#2b2027] dark:lg:to-[#221a1f]">
-          <img
-            src={asset("/brand/hero.jpg")}
-            alt=""
-            className="h-full w-full object-cover object-[50%_40%] lg:h-[78%] lg:[mask-image:linear-gradient(to_bottom,transparent,black_14%,black_86%,transparent)] dark:brightness-[0.7] dark:saturate-[0.9]"
-          />
+        <div className="relative h-full w-full overflow-hidden lg:rounded-[28px]">
+          {/* Portrait art for the desktop panel (lg = 1024px), landscape art for the mobile banner */}
+          <picture>
+            <source media="(min-width: 1024px)" srcSet={asset("/brand/hero-portrait.jpg")} />
+            <img
+              src={asset("/brand/hero.jpg")}
+              alt=""
+              className="h-full w-full object-cover object-[50%_40%] lg:object-[50%_45%] dark:brightness-[0.7] dark:saturate-[0.9]"
+            />
+          </picture>
           <div className="absolute bottom-6 left-6 hidden items-center gap-2 rounded-full border border-white/70 bg-white/60 px-4 py-1.5 text-sm font-semibold tracking-wide text-[#b83a68] backdrop-blur-md lg:flex dark:border-white/20 dark:bg-white/10 dark:text-white">
             <span className="h-2 w-2 rounded-full bg-pink-300 shadow-[0_0_8px_2px_rgba(249,168,212,0.8)]" />
             稀饭 ACG 统一身份认证平台
