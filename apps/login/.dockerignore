@@ -1,0 +1,3 @@
+# The image only copies the standalone build (see Dockerfile).
+*
+!.next/standalone

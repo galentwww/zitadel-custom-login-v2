@@ -18,6 +18,43 @@ html {
   --dark-background-color: #000000;
 }
 
+/* Xifan ACG branding */
+.font-xf {
+  font-family:
+    var(--font-latin), var(--font-cjk), "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", system-ui, sans-serif;
+}
+
+.xf-heading {
+  h1 {
+    @apply text-left text-[28px] leading-tight font-extrabold tracking-tight;
+  }
+
+  .ztdl-p {
+    @apply text-left text-[15px] leading-relaxed;
+  }
+}
+
+.xf-rise {
+  animation: xf-rise 0.45s cubic-bezier(0.2, 0.7, 0.2, 1) both;
+}
+
+@keyframes xf-rise {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .xf-rise {
+    animation: none;
+  }
+}
+
 .form-checkbox {
   position: relative;
 }
