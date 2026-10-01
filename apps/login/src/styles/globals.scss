@@ -34,6 +34,12 @@ html {
   }
 }
 
+// A page with a branded logo (DynamicTheme) covers the shell's default logo;
+// keep the header's space so the layout does not shift.
+main:has([data-brand-logo]) [data-default-logo] {
+  visibility: hidden;
+}
+
 .xf-rise {
   animation: xf-rise 0.45s cubic-bezier(0.2, 0.7, 0.2, 1) both;
 }
