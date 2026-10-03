@@ -9,6 +9,7 @@ import { OrganizationService } from "@zitadel/proto/zitadel/org/v2/org_service_p
 import { CreateResponseRequest, SAMLService } from "@zitadel/proto/zitadel/saml/v2/saml_service_pb";
 import { RequestChallenges } from "@zitadel/proto/zitadel/session/v2/challenge_pb";
 import { Checks, SessionService } from "@zitadel/proto/zitadel/session/v2/session_service_pb";
+import { BrandingSettings } from "@zitadel/proto/zitadel/settings/v2/branding_settings_pb";
 import { LoginSettings } from "@zitadel/proto/zitadel/settings/v2/login_settings_pb";
 import { SettingsService } from "@zitadel/proto/zitadel/settings/v2/settings_service_pb";
 import { SendEmailVerificationCodeSchema } from "@zitadel/proto/zitadel/user/v2/email_pb";
@@ -133,6 +134,8 @@ export async function getHostedLoginTranslation({
   );
 }
 
+export type OrgBrandingSettings = BrandingSettings & { organizationId?: string };
+
 export async function getBrandingSettings({
   serviceConfig,
   organization,
@@ -142,9 +145,13 @@ export async function getBrandingSettings({
   const fetcher = async () => {
     const settingsService: Client<typeof SettingsService> = await createServiceForHost(SettingsService, serviceConfig);
 
+    // Tag the settings with the requested organization so the brand shell can
+    // pick a per-organization illustration (see brand-shell.tsx).
     return settingsService
       .getBrandingSettings({ ctx: makeReqCtx(organization) }, {})
-      .then((resp) => (resp.settings ? resp.settings : undefined));
+      .then((resp): OrgBrandingSettings | undefined =>
+        resp.settings ? Object.assign(resp.settings, { organizationId: organization }) : undefined,
+      );
   };
 
   return freshCache(

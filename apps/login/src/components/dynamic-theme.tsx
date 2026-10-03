@@ -1,8 +1,8 @@
 "use client";
 
-import { BrandingSettings } from "@zitadel/proto/zitadel/settings/v2/branding_settings_pb";
+import type { OrgBrandingSettings } from "@/lib/zitadel";
 import { Children, ReactNode } from "react";
-import { BrandLogo, LOGO_SIZE } from "./brand-shell";
+import { BrandHero, BrandLogo, LOGO_SIZE } from "./brand-shell";
 import { ThemeWrapper } from "./theme-wrapper";
 
 /**
@@ -10,7 +10,8 @@ import { ThemeWrapper } from "./theme-wrapper";
  * shell (see brand-shell.tsx, mounted in the layout). The illustration
  * lives in the shell; the logo comes from the branding settings of the
  * current organization and is placed over the shell header, replacing the
- * default Xifan logo. Without a branding logo the default stays.
+ * default Xifan logo. Without a branding logo the default stays. The
+ * illustration is swapped per organization (BrandHero).
  *
  * - Two children: first is the heading (title + description), second the form.
  * - Single child: rendered as-is.
@@ -23,7 +24,7 @@ export function DynamicTheme({
   children,
 }: {
   children: ReactNode | ((isSideBySide: boolean) => ReactNode);
-  branding?: BrandingSettings;
+  branding?: OrgBrandingSettings;
 }) {
   const actualChildren: ReactNode =
     typeof children === "function" ? (children as (isSideBySide: boolean) => ReactNode)(false) : children;
@@ -37,6 +38,7 @@ export function DynamicTheme({
 
   return (
     <ThemeWrapper branding={branding}>
+      <BrandHero organizationId={branding?.organizationId} />
       {lightLogo && (
         // Positioned against the shell's <main>, matching its header padding.
         <div data-brand-logo className="absolute top-6 left-6 sm:left-10 lg:top-10 lg:left-16">
